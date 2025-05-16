@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { AnnouncementBarModule } from './modules/announcement-bar/announcement-bar.module';
 import { BarClickModule } from './modules/bar-click/bar-click.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { BarClickModule } from './modules/bar-click/bar-click.module';
       useFactory: typeOrmConfig,
     }),
     UserModule,
+    AuthModule,
     AnnouncementBarModule,
     BarClickModule,
   ],
