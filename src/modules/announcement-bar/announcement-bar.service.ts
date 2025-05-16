@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AnnouncementBar } from './entities/announcement-bar.entity';
 import { User } from '../user/entities/user.entity';
+import { CreateAnnouncementBarDto } from './dto/create-announcement-bar.dto';
 
 @Injectable()
 export class AnnouncementBarService {
@@ -11,8 +12,9 @@ export class AnnouncementBarService {
     private readonly barRepository: Repository<AnnouncementBar>,
   ) {}
 
-  async create(data: Partial<AnnouncementBar>, user: User): Promise<AnnouncementBar> {
-    const bar = this.barRepository.create({ ...data, user });
+  async create(data: CreateAnnouncementBarDto, user: User): Promise<AnnouncementBar> {
+    const expires_at = data.expires_at ? new Date(data.expires_at as any) : undefined;
+    const bar = this.barRepository.create({ ...data, expires_at, user });
     return this.barRepository.save(bar);
   }
 

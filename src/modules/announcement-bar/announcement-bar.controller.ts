@@ -3,7 +3,8 @@ import { AnnouncementBarService } from './announcement-bar.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { CreateAnnouncementBarDto } from './dto/create-announcement-bar.dto';
 
 @ApiTags('Announcement Bars')
 @ApiBearerAuth()
@@ -14,8 +15,9 @@ export class AnnouncementBarController {
 
   @ApiOperation({ summary: 'ایجاد نوار اعلان جدید' })
   @ApiResponse({ status: 201, description: 'نوار اعلان ایجاد شد.' })
+  @ApiBody({ type: CreateAnnouncementBarDto })
   @Post()
-  async create(@Body() data: any, @Request() req) {
+  async create(@Body() data: CreateAnnouncementBarDto, @Request() req) {
     return this.barService.create(data, req.user);
   }
 
